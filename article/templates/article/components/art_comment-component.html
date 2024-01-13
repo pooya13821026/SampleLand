@@ -1,0 +1,54 @@
+{% load poll_extras %}
+{% load poll_extras %}
+
+<h3 class="title">{{ comments_count }} دیدگاه</h3>
+<ul>
+    {% for item in comments %}
+        <li id="comment-pointer">
+            <div class="comment">
+                <figure class="comment-media">
+                    <a href="#">
+                        <img src="{{ item.user.avatar.url }}" alt="User name">
+                    </a>
+                </figure>
+                <div class="comment-body">
+                    <a class="comment-reply"
+                       onclick="replyComment({{ item.id }})">پاسخ</a>
+                    <div class="comment-user">
+                        <h4><a href="#">{{ item.user }}</a></h4>
+                        <span class="comment-date">{{ item.create_date | get_persian_date }}</span>
+                    </div>
+                    <div class="comment-content">
+                        <p>{{ item.comment_text }}</p>
+                    </div>
+                </div>
+            </div>
+            <ul>
+                {% for reply in item.articlecomment_set.all %}
+                    <li id="comment-pointer">
+                        <div class="comment">
+                            <figure class="comment-media">
+                                <a href="#">
+                                    <img src="{{ reply.user.avatar.url }}"
+                                         alt="User name">
+                                </a>
+                            </figure>
+                            <div class="comment-body">
+                                <a class="comment-reply"
+                                   onclick="replyComment({{ reply.id }})">پاسخ</a>
+                                <div class="comment-user">
+                                    <h4><a href="#">{{ reply.user }}</a></h4>
+                                    <span class="comment-date">{{ reply.create_date | get_persian_date }}</span>
+                                </div>
+
+                                <div class="comment-content">
+                                    <p>{{ reply.comment_text }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+</ul>

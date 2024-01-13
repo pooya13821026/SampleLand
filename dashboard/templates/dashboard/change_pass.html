@@ -1,0 +1,44 @@
+{% extends 'shared/_layout.html' %}
+{% load render_partial %}
+
+{% block title %}تغییر کلمه عبور{% endblock %}
+
+{% block content %}
+    <main class="main">
+        <div class="page-header text-center" style="background-image: url('static/images/page-header-bg.jpg')">
+            <div class="container">
+                <h1 class="page-title">داشبورد<span>فروشگاه</span></h1>
+            </div><!-- End .container -->
+        </div><!-- End .page-header -->
+        <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index-1.html">خانه</a></li>
+                    <li class="breadcrumb-item"><a href="#">فروشگاه</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">تغییر کلمه عبور</li>
+                </ol>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-lg-3">
+                    <aside>
+                        {% render_partial 'dashboard.views.user_dashboard_component' %}
+                    </aside>
+                </div>
+                <div class="col-md-6 mt-n1">
+                    <div class="tab-content">
+                        <div class="tab-pane active" role="tabpanel">
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                {{ change_pass_form }}
+                                <button type="submit" class="btn btn-primary mt-20">تغییر کلمه عبور</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

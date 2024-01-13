@@ -1,0 +1,241 @@
+{% extends 'shared/_layout.html' %}
+{% load thumbnail %}
+{% load poll_extras %}
+{% load render_partial %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}
+
+    {% endblock %}
+</head>
+<body>
+{% block content %}
+    <main class="main">
+        <div class="page-header text-center" style="background-image: url('../../assets/images/page-header-bg.jpg')">
+            <div class="container">
+                <h1 class="page-title">لیست<span>اخبار</span></h1>
+            </div><!-- End .container -->
+        </div>
+        <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index-1.html">خانه</a></li>
+                    <li class="breadcrumb-item"><a href="#">اخبار</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">لیست</li>
+                </ol>
+            </div><!-- End .container -->
+        </nav><!-- End .breadcrumb-nav -->
+        <div class="page-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9">
+                        {% for object in object_list %}
+                            <article class="entry entry-list">
+                                <div class="row align-items-center">
+                                    <div class="col-md-5">
+                                        <figure class="entry-media">
+                                            <a href="{{ object.get_absolute_url }}">
+                                                {% thumbnail object.image "400x250" crop="center" as im %}
+                                                    <img src="{{ im.url }}" alt="{{ object.title }}">
+                                                {% endthumbnail %}
+                                            </a>
+                                        </figure>
+                                    </div>
+                                    <div class="col-md-7">
+                                        <div class="entry-body">
+                                            <div class="entry-meta">
+                                                <span class="entry-author">
+                                                    نویسنده : <a href="#">{{ object.author }}</a>
+                                                </span>
+                                                <span class="meta-separator">|</span>
+                                                <a href="#">{{ object.create_date | get_persian_date }}</a>
+                                                <span class="meta-separator">|</span>
+                                                <a href="#">2 دیدگاه</a>
+                                            </div>
+                                            <h2 class="entry-title">
+                                                <a href="{{ object.get_absolute_url }}">{{ object.title }}</a>
+                                            </h2>
+                                            <div class="entry-cats">
+                                                <a href="#">سبک زندگی</a>،
+                                                <a href="#">فروشگاه</a>
+                                            </div><!-- End .entry-cats -->
+
+                                            <div class="entry-content">
+                                                <p>{{ object.short_desc }}</p>
+                                                <a href="{{ object.get_absolute_url }}" class="read-more">ادامه
+                                                    مقاله</a>
+                                            </div><!-- End .entry-content -->
+                                        </div><!-- End .entry-body -->
+                                    </div><!-- End .col-md-7 -->
+                                </div><!-- End .row -->
+                            </article>
+                        {% endfor %}
+                        {% comment %}<nav aria-label="Page navigation">
+                            <ul class="pagination">
+                                <li class="page-item disabled">
+                                    <a class="page-link page-link-prev" href="#" aria-label="Previous" tabindex="-1"
+                                       aria-disabled="true">
+                                        <span aria-hidden="true"><i class="icon-long-arrow-right"></i></span>قبلی
+                                    </a>
+                                </li>
+                                <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item">
+                                    <a class="page-link page-link-next" href="#" aria-label="Next">
+                                        بعدی <span aria-hidden="true"><i class="icon-long-arrow-left"></i></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>{% endcomment %}
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination justify-content-center">
+                                {% if page_obj.has_previous %}
+                                    <li class="page-item">
+                                        <a class="page-link page-link-prev"
+                                           href="?page={{ page_obj.previous_page_number }}" aria-label="Previous"
+                                           tabindex="-1"
+                                           aria-disabled="true">
+                                            <span aria-hidden="true"><i class="icon-long-arrow-right"></i></span>قبلی
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% for page in paginator.page_range %}
+                                    <li class="page-item {% if page_obj.number == page %}active{% endif %}"
+                                        aria-current="page"><a
+                                            class="page-link"
+                                            href="?page={{ page }}">{{ page }}</a>
+                                    </li>
+                                {% endfor %}
+                                {% if page_obj.has_next %}
+                                    <li class="page-item">
+                                        <a class="page-link page-link-next" href="?page={{ page_obj.next_page_number }}"
+                                           aria-label="Next">
+                                            بعدی <span aria-hidden="true"><i class="icon-long-arrow-left"></i></span>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                    <aside class="col-lg-3">
+                        <div class="sidebar">
+                            <div class="widget widget-search">
+                                <h3 class="widget-title">جستجو</h3><!-- End .widget-title -->
+
+                                <form action="#">
+                                    <label for="ws" class="sr-only">جستجوی اخبار</label>
+                                    <input type="search" class="form-control" name="ws" id="ws"
+                                           placeholder="جستجوی خبر مورد نظر" required="">
+                                    <button type="submit" class="btn"><i class="icon-search"></i><span class="sr-only">جستجو</span>
+                                    </button>
+                                </form>
+                            </div><!-- End .widget -->
+
+                            <div class="widget widget-cats">
+                                <h3 class="widget-title">دسته بندی ها</h3><!-- End .widget-title -->
+
+                                {% render_partial 'article.views.article_category_component' %}
+
+                            </div><!-- End .widget -->
+
+                            <div class="widget">
+                                <h3 class="widget-title">محبوب ترین اخبار</h3><!-- End .widget-title -->
+
+                                <ul class="posts-list">
+                                    <li>
+                                        <figure>
+                                            <a href="#">
+                                                <img src="../../assets/images/blog/sidebar/post-1.jpg" alt="post">
+                                            </a>
+                                        </figure>
+
+                                        <div>
+                                            <span>22 فروردین 1399</span>
+                                            <h4><a href="#">لورم ایپسوم متن ساختگی با تولید سادگی</a></h4>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <figure>
+                                            <a href="#">
+                                                <img src="../../assets/images/blog/sidebar/post-2.jpg" alt="post">
+                                            </a>
+                                        </figure>
+
+                                        <div>
+                                            <span>19 فروردین 1399</span>
+                                            <h4><a href="#">لورم ایپسوم متن ساختگی</a></h4>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <figure>
+                                            <a href="#">
+                                                <img src="../../assets/images/blog/sidebar/post-3.jpg" alt="post">
+                                            </a>
+                                        </figure>
+
+                                        <div>
+                                            <span>12 فروردین 1399</span>
+                                            <h4><a href="#">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</a></h4>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <figure>
+                                            <a href="#">
+                                                <img src="../../assets/images/blog/sidebar/post-4.jpg" alt="post">
+                                            </a>
+                                        </figure>
+
+                                        <div>
+                                            <span>25 فروردین 1399</span>
+                                            <h4><a href="#">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم</a></h4>
+                                        </div>
+                                    </li>
+                                </ul><!-- End .posts-list -->
+                            </div><!-- End .widget -->
+
+                            <div class="widget widget-banner-sidebar">
+                                <div class="banner-sidebar-title">قسمت تبلیغات 280 در 280</div>
+                                <!-- End .ad-title -->
+
+                                <div class="banner-sidebar banner-overlay">
+                                    <a href="#">
+                                        <img src="../../assets/images/blog/sidebar/banner.jpg" alt="بنر">
+                                    </a>
+                                </div><!-- End .banner-ad -->
+                            </div><!-- End .widget -->
+
+                            <div class="widget">
+                                <h3 class="widget-title">برچسب ها</h3><!-- End .widget-title -->
+
+                                <div class="tagcloud">
+                                    <a href="#">مد</a>
+                                    <a href="#">استایل</a>
+                                    <a href="#">زنانه</a>
+                                    <a href="#">عکس</a>
+                                    <a href="#">سفر</a>
+                                    <a href="#">خرید</a>
+                                    <a href="#">سرگرمی</a>
+                                </div><!-- End .tagcloud -->
+                            </div><!-- End .widget -->
+
+                            <div class="widget widget-text">
+                                <h3 class="widget-title">درباره بخش اخبار</h3><!-- End .widget-title -->
+
+                                <div class="widget-text-content">
+                                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم، لورم ایپسوم متن ساختگی با
+                                        تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با لورم ایپسوم متن ساختگی با
+                                        تولید سادگی نامفهوم</p>
+                                </div><!-- End .widget-text-content -->
+                            </div><!-- End .widget -->
+                        </div><!-- End .sidebar -->
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+</body>
+</html>

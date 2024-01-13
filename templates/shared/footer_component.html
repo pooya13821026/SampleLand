@@ -1,0 +1,75 @@
+<footer class="footer">
+    <div class="cta bg-image bg-dark pt-4 pb-5 mb-0"
+         style="background-image: url(static/images/demos/demo-4/bg-5.jpg);">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-sm-10 col-md-8 col-lg-6">
+                    <div class="cta-heading text-center">
+                        <h3 class="cta-title text-white">دریافت آخرین پیشنهادات</h3>
+                        <p class="cta-desc text-white text-center">و دریافت <span class="font-weight-normal">کد
+                                        تخفیف 20 هزار تومانی</span> برای اولین خرید</p>
+                    </div>
+                    <form action="#">
+                        <div class="input-group input-group-round">
+                            <input type="email" class="form-control form-control-white"
+                                   placeholder="آدرس ایمیل خود را وارد کنید" aria-label="Email Adress" required>
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit"><span>عضویت</span><i
+                                        class="icon-long-arrow-left"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-middle">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-lg-3">
+                    <div class="widget widget-about">
+                        <img src="{{ settings.logo.url }}" class="footer-logo"
+                             alt="Footer Logo" width="105" height="25">
+                        <p>{{ settings.address }}</p>
+
+                        <div class="widget-call">
+                            <i class="icon-phone"></i>
+                            سوالی دارید؟ 7روز هفته/24ساعته
+                            <a href="tel:+98{{ settings.phone }}">{{ settings.phone }}</a>
+                        </div>
+                    </div>
+                </div>
+                {% for footer_link_title in footer_link_titles %}
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="widget">
+                            <h4 class="widget-title">{{ footer_link_title.title }}</h4>
+                            <ul class="widget-list">
+                                {% for link in footer_link_title.footerlink_set.all %}
+                                    <li><a href="{{ link.url_title }}" target="_blank">{{ link.title }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <p class="footer-copyright">کپی رایت © 2023 {{ settings.copyright_text }}</p>
+            <div class="social-icons social-icons-color">
+                <span class="social-label">شبکه های اجتماعی</span>
+                <a href="{{ settings.facebook_url }}" class="social-icon social-facebook" title="فیسبوک" target="_blank"><i
+                        class="icon-facebook-f"></i></a>
+                <a href="#" class="social-icon social-twitter" title="توییتر" target="_blank"><i
+                        class="icon-twitter"></i></a>
+                <a href="#" class="social-icon social-instagram" title="اینستاگرام" target="_blank"><i
+                        class="icon-instagram"></i></a>
+                <a href="#" class="social-icon social-youtube" title="یوتیوب" target="_blank"><i
+                        class="icon-youtube"></i></a>
+                <a href="#" class="social-icon social-pinterest" title="پینترست" target="_blank"><i
+                        class="icon-pinterest"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>

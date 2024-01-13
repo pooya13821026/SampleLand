@@ -1,0 +1,62 @@
+{% load thumbnail %}
+<div class="col-6 col-md-4 col-lg-4">
+    <div class="product product-7 text-center">
+        <figure class="product-media">
+            <span class="product-label label-new">جدید</span>
+            <a href="{{ product.get_absolute_url }}">
+                {% thumbnail product.image "280x280" quality=99 crop="center" as im %}
+                    <img src="{{ im.url }}">
+                {% endthumbnail %}
+            </a>
+
+            <div class="product-action-vertical">
+                <a href="#"
+                   class="btn-product-icon btn-wishlist btn-expandable"><span>افزودن
+                                                            به لیست علاقه مندی</span></a>
+                <a href="popup/quickView.html"
+                   class="btn-product-icon btn-quickview"
+                   title="مشاهده سریع محصول"><span>مشاهده سریع</span></a>
+                <a href="#" class="btn-product-icon btn-compare"
+                   title="مقایسه"><span>مقایسه</span></a>
+            </div><!-- End .product-action-vertical -->
+
+            <div class="product-action">
+                <a href="#" class="btn-product btn-cart"><span>افزودن به
+                                                            سبد خرید</span></a>
+            </div><!-- End .product-action -->
+        </figure><!-- End .product-media -->
+
+        <div class="product-body">
+            <div class="product-cat text-center">
+                <a href="#">{{ product.brand.title }}</a>
+            </div><!-- End .product-cat -->
+            <h3 class="product-title text-center"><a href="{{ product.get_absolute_url }}">{{ product.title }}</a></h3>
+            <a href="{{ product.get_absolute_url }}">
+                <div class="product-price">{{ product.price }}</div>
+            </a>
+            <div class="ratings-container">
+                <div class="ratings">
+                    <div class="ratings-val" style="width: 20%;"></div>
+                    <!-- End .ratings-val -->
+                </div><!-- End .ratings -->
+                <span class="ratings-text">( 2 بازدید )</span>
+            </div><!-- End .rating-container -->
+
+            <div class="product-nav product-nav-thumbs">
+                <a href="#" class="active">
+                    <img src="../../assets/images/products/product-4-thumb.jpg"
+                         alt="product desc">
+                </a>
+                <a href="#">
+                    <img src="../../assets/images/products/product-4-2-thumb.jpg"
+                         alt="product desc">
+                </a>
+
+                <a href="#">
+                    <img src="../../assets/images/products/product-4-3-thumb.jpg"
+                         alt="product desc">
+                </a>
+            </div><!-- End .product-nav -->
+        </div><!-- End .product-body -->
+    </div><!-- End .product -->
+</div>

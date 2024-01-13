@@ -1,0 +1,52 @@
+{% extends 'shared/_layout.html' %}
+{% load render_partial %}
+<title>Title</title>
+{% block content %}
+    <main class="main">
+        <div class="page-header text-center" style="background-image: url('static/images/page-header-bg.jpg')">
+            <div class="container">
+                <h1 class="page-title">داشبورد<span>فروشگاه</span></h1>
+            </div>
+        </div>
+        <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index-1.html">خانه</a></li>
+                    <li class="breadcrumb-item"><a href="#">فروشگاه</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">داشبورد</li>
+                </ol>
+            </div>
+        </nav>
+        <div class="page-content">
+            <div class="dashboard">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 col-lg-3">
+                            <aside>
+                                {% render_partial 'dashboard.views.user_dashboard_component' %}
+                            </aside>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="tab-content">
+                                <div class="tab-pane show active" role="tabpanel"
+                                >
+                                    <p>سلام <span class="font-weight-normal text-dark">کاربر</span>
+                                        <br>
+                                        شما در اینجا میتوانید <a href="#tab-orders"
+                                                                 class="tab-trigger-link link-underline">سفارشات خود
+                                            را
+                                            ببینید</a>، وضعیت
+                                        ارسال <a href="#tab-address" class="tab-trigger-link">سفارشات خود را مشاهده
+                                            کنید وآدرس خود را تغییر دهید</a>، و همچنین <a href="#tab-account"
+                                                                                          class="tab-trigger-link">می
+                                            توانید رمز عبور یا جزئیات حساب کاربری خود را
+                                            ویرایش کنید </a>.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

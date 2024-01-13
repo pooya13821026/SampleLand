@@ -1,0 +1,16 @@
+<div class="widget-body">
+    <div class="filter-items filter-items-count">
+        {% for brand in brands %}
+            <div class="filter-item">
+                {% if brand.brand_count > 0 %}
+
+                        <a href="{% url 'product_brands_list' br=brand.url_title %}">
+                            <label class="custom-control-label" for="cat-1">{{ brand.title }}</label>
+                        </a>
+
+                    <span class="item-count">{{ brand.brand_count }}</span>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</div>

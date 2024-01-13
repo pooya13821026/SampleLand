@@ -1,0 +1,16 @@
+<div class="widget-body">
+    <div class="filter-items filter-items-count">
+        {% for category in categories %}
+            {% if category.product_count > 0 %}
+                <div class="filter-item">
+                    <div class="custom-control custom-checkbox">
+                        <a href="{% url 'product_categories_list' cat=category.url_title %}">
+                            <label class="custom-control-label" for="cat-1">{{ category.title }}</label>
+                        </a>
+                    </div>
+                    <span class="item-count">{{ category.product_count }}</span>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>

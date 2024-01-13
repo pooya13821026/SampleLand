@@ -1,0 +1,13 @@
+<ul>
+    {% for category in s_categories %}
+        <li>
+            {% if category.cat_count > 0 %}
+
+                <a href="{% url 'articles_with_category' category=category.url_title %}">{{ category.title }}
+                    <span>{{ category.cat_count }}</span>
+                </a>
+
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
